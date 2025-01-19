@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to [Company Name]</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<style>
+	        .hero-section {
+	            background: #f8f9fa;
+	            padding: 60px 0;
+	            text-align: center;
+	        }
+	        .cta-buttons a {
+	            margin: 10px;
+	            font-size: 18px;
+	        }
+	        .footer .logo img {
+	            max-height: 40px;
+	            margin-right: 15px;
+	        }
+	        .footer {
+	            display: flex;
+	            align-items: center;
+	            justify-content: space-between;
+	            background-color: #000;
+	            padding: 30px 15px;
+	            border-top: 1px solid #ddd;
+	        }
+	        .footer a {
+	            color: #fff;
+	            text-decoration: none;
+	            margin: 0 10px;
+	        }
+	        .footer a:hover {
+	            text-decoration: underline;
+	            color: #ddd;
+	        }
+	        .footer p {
+	            color: #fff;
+	        }
+	    </style>
+</head>
+<body>
+	<!-- Navigation Section -->
+	<div th:replace="fragments/nav :: nav"></div>        
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <h1 class="display-4">Welcome to [Company Name]</h1>
+    <p class="lead">Innovating the future with unparalleled solutions and services.</p>
+    <div class="cta-buttons">
+        <a href="#learnMore" class="btn btn-primary btn-lg">Learn More</a>
+        <a href="#" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</a>
+    </div>
+</div>
+
+
+<!-- Key Highlights Section -->
+<div class="container mt-5">
+    <div class="row text-center">
+        <div class="col-md-4">
+            <h3>Our Expertise</h3>
+            <p>Offering top-notch solutions tailored to your needs.</p>
+        </div>
+        <div class="col-md-4">
+            <h3>Global Reach</h3>
+            <p>Operating worldwide with a commitment to excellence.</p>
+        </div>
+        <div class="col-md-4">
+            <h3>Customer-Centric</h3>
+            <p>Building long-lasting relationships through exceptional service.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Us Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contactModalLabel">Contact Us</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Thymeleaf Form -->
+                <form id="contactForm" th:action="@{/send-email}" method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required
+                               th:value="${contactForm?.name}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required
+                               th:value="${contactForm?.email}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Your Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required
+                               pattern="[0-9]{10}" th:value="${contactForm?.phone}">
+                        <small class="form-text text-muted">Please enter a 10-digit phone number.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Your Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Enter your message" required
+                                  th:text="${contactForm?.message}"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Footer Section -->
+<div class="footer">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="logo">
+            <img src="path-to-your-logo.png" alt="[Company Name] Logo">
+        </div>
+        <div>
+            <p>
+                <a th:href="@{/about}">About Us</a> |
+                <a th:href="@{/careers}">Careers</a> |
+                <a th:href="@{/privacy}">Privacy Policy</a> |
+                <a th:href="@{/terms}">Terms</a>
+            </p>
+            <p>
+                <a href="https://www.facebook.com/" target="_blank">Facebook</a> |
+                <a href="https://twitter.com/" target="_blank">X</a> |
+                <a href="https://www.instagram.com/" target="_blank">Instagram</a> |
+                <a href="https://www.youtube.com/" target="_blank">YouTube</a>
+            </p>
+        </div>
+        <div>
+            <p>&copy; 2025 [Company Name]. All Rights Reserved.</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

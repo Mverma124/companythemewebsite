@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<style>
+	      /* Hero Section */
+	      .hero-section {
+	          background: #f8f9fa;
+	          padding: 60px 0;
+	          text-align: center;
+	      }
+	      .cta-buttons a {
+	          margin: 10px;
+	          font-size: 18px;
+	      }
+
+	      /* Footer Styling */
+	      .footer .logo img {
+	          max-height: 40px;
+	          margin-right: 15px;
+	      }
+
+	      .footer {
+	          display: flex;
+	          align-items: center;
+	          justify-content: space-between;
+	          background-color: #000;
+	          padding: 30px 15px;
+	          border-top: 1px solid #ddd;
+	      }
+
+	      .footer a {
+	          color: #fff;
+	          text-decoration: none;
+	          margin: 0 10px;
+	      }
+
+	      .footer a:hover {
+	          text-decoration: underline;
+	          color: #ddd;
+	      }
+
+	      .footer p {
+	          color: #fff;
+	      }
+	  </style>    
+<body>
+		
+        <div class="footer">
+            <div class="container d-flex justify-content-between align-items-center">
+                <!-- Logo -->
+                <div class="logo">
+                    <img src="@{path-to-your-logo.png}" alt="[Company Name] Logo">
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <p>
+                        <a th:href="@{/}">Home</a> |
+                        <a th:href="@{/about}">About Us</a> |
+                        <a th:href="@{/careers}">Careers</a> |
+                        <a th:href="@{/privacy}">Privacy Policy</a> |
+                        <a th:href="@{/terms}">Terms & Conditions</a>
+                    </p>
+                    <p>
+                        <a href="https://www.facebook.com/" target="_blank">Facebook</a> |
+                        <a href="https://twitter.com/" target="_blank">X</a> |
+                        <a href="https://www.instagram.com/" target="_blank">Instagram</a> |
+                        <a href="https://www.youtube.com/" target="_blank">YouTube</a>
+                    </p>
+                </div>
+
+                <!-- Copyright -->
+                <div>
+                    <p>&copy; 2025 [Company Name]. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

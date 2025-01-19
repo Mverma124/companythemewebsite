@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+         
+           
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .form-group label {
+            font-size: 1.1rem;
+        }
+
+        .alert {
+            background-color: #f4f4f4;
+            color: #155724;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+	
+	<div th:replace="fragments/nav :: nav"></div>
+
+    <div class="container">
+
+        <h1>Job Application Form</h1>
+
+        <!-- Check if the application is submitted -->
+        <div th:if="${applicationSubmitted}" class="alert">
+            <p>Your application has been submitted successfully!</p>
+        </div>
+
+        <!-- Display the form if the application is not yet submitted -->
+        <div th:unless="${applicationSubmitted}">
+            <form action="/apply" method="post" th:object="${jobApplication}">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" th:field="*{fullName}" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="gender">Gender:</label>
+                        <select id="gender" th:field="*{gender}" class="form-select">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="aboutYourself">About Yourself:</label>
+                    <textarea id="aboutYourself" th:field="*{aboutYourself}" class="form-control" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="skills">Skills:</label>
+                    <input type="text" id="skills" th:field="*{skills}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" th:field="*{location}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="jobOpening">Job Opening:</label>
+                    <select id="jobOpening" th:field="*{jobOpening}" class="form-select" required>
+                        <option th:each="job : ${jobOpenings}" th:value="${job.id}" th:text="${job.jobTitle}"></option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="experienceYears">Years of Experience (Optional):</label>
+                        <input type="number" id="experienceYears" th:field="*{experienceYears}" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="experienceDetails">Experience Details (Optional):</label>
+                        <textarea id="experienceDetails" th:field="*{experienceDetails}" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" th:field="*{email}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="tel" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" required>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn-submit">Submit Application</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

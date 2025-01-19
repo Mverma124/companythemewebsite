@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            background-color: #343a40;
+            color: white;
+            width: 250px;
+            padding: 30px 0;
+            position: fixed;
+            height: 100%;
+        }
+        .sidebar .nav-link {
+            color: white !important;
+            font-size: 18px;
+            padding: 15px 30px;
+            display: block;
+        }
+        .sidebar .nav-link:hover {
+            background-color: #495057;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+            overflow-y: auto;
+        }
+        .content-section {
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f9f9f9;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2 class="text-center text-white mb-4">Admin Panel</h2>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="#" data-target="#contacts-section" onclick="showSection('contacts-section')">Contacts</a>
+            <a class="nav-link" href="#" data-target="#job-openings-section" onclick="showSection('job-openings-section')">Job Openings</a>
+            <a class="nav-link" href="#" data-target="#apply-section" onclick="showSection('apply-section')">Applies</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Contacts Section -->
+        <section id="contacts-section" class="content-section">
+            <h2>Contacts</h2>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="contact : ${contacts}">
+                        <td th:text="${contact.id}"></td>
+                        <td th:text="${contact.name}"></td>
+                        <td th:text="${contact.email}"></td>
+                        <td th:text="${contact.phone}"></td>
+                        <td th:text="${contact.message}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Job Openings Section -->
+        <section id="job-openings-section" class="content-section">
+            <h2>Job Openings</h2>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Job Title</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Requirements</th>
+                        <th>Salary</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="job : ${jobOpenings}">
+                        <td th:text="${job.id}"></td>
+                        <td th:text="${job.jobTitle}"></td>
+                        <td th:text="${job.location}"></td>
+                        <td th:text="${job.description}"></td>
+                        <td th:text="${job.requirements}"></td>
+                        <td th:text="${job.salary}"></td>
+                        <td th:text="${job.createdAt}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+		<!-- Apply Section -->
+		<section id="apply-section" class="content-section">
+		    <h2>Applies</h2>
+
+		    <!-- Loop through each application (apply) -->
+		    <div th:each="apply : ${applies}" class="mb-4">
+		        <div class="row">
+		            <!-- Show only ID and Full Name side by side -->
+		            <div class="col-md-5 mb-3">
+		                <label for="apply-id" class="form-label">ID</label>
+		                <input type="text" class="form-control" id="apply-id" th:value="${apply.id}" readonly>
+		            </div>
+
+		            <div class="col-md-5 mb-3">
+		                <label for="apply-full-name" class="form-label">Full Name</label>
+		                <input type="text" class="form-control" id="apply-full-name" th:value="${apply.fullName}" readonly>
+		            </div>
+
+		            <!-- View More Button (Accordion Toggle) -->
+		            <div class="col-md-2 mb-3 d-flex align-items-end">
+		                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDetails{{apply.id}}" aria-expanded="false" aria-controls="collapseDetails{{apply.id}}">
+		                    View More
+		                </button>
+		            </div>
+		        </div>
+
+		        <!-- Accordion (Collapsible Full Details) -->
+		        <div class="collapse" id="collapseDetails{{apply.id}}">
+		            <div class="card card-body mt-3">
+		                <form>
+		                    <div class="mb-3">
+		                        <label for="apply-gender" class="form-label">Id</label>
+		                        <input type="text" class="form-control" id="apply-gender" th:value="${apply.id}" readonly>
+		                    </div>
+		                    <div class="mb-3">
+		                        <label for="apply-gender" class="form-label">Name</label>
+		                        <input type="text" class="form-control" id="apply-gender" th:value="${apply.fullName}" readonly>
+		                    </div>							
+
+		                    <div class="mb-3">
+		                        <label for="apply-gender" class="form-label">Gender</label>
+		                        <input type="text" class="form-control" id="apply-gender" th:value="${apply.gender}" readonly>
+		                    </div>
+
+		                    <div class="mb-3">
+		                        <label for="apply-skills" class="form-label">Skills</label>
+		                        <input type="text" class="form-control" id="apply-skills" th:value="${apply.skills}" readonly>
+		                    </div>
+
+		                    <div class="mb-3">
+		                        <label for="apply-about" class="form-label">About Yourself</label>
+		                        <textarea class="form-control" id="apply-about" rows="3" th:text="${apply.aboutYourself}" readonly></textarea>
+		                    </div>
+
+		                    <div class="mb-3">
+		                        <label for="apply-experience" class="form-label">Experience Years</label>
+		                        <input type="text" class="form-control" id="apply-experience" th:value="${apply.experienceYears}" readonly>
+		                    </div>
+
+		                    <div class="mb-3">
+		                        <label for="apply-application-date" class="form-label">Application Date</label>
+		                        <input type="text" class="form-control" id="apply-application-date" th:value="${apply.applicationDate}" readonly>
+		                    </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</section>
+
+		<!-- Include Bootstrap JS (make sure this is included if not already) -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to show the relevant section based on the clicked link
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+
+            // Show the selected section
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.add('active');
+        }
+    </script>
+</body>
+</html>
